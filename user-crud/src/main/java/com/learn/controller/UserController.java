@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.learn.dto.UserDto;
 import com.learn.entity.User;
 import com.learn.service.UserService;
 
@@ -29,31 +30,31 @@ public class UserController {
 	//build the post request with status code 201
 	//post request is used to create the user on database
 	@PostMapping("/create")
-	public ResponseEntity<User> createUser(@RequestBody User user){
-		User savedUser = userService.createUser(user);
+	public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+		UserDto savedUser = userService.createUser(userDto);
 		return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
 	}
 	
 	//build the get request with status code 200
 	//get request is used to fetch the data from the database
 	@GetMapping("/fetch")
-	public ResponseEntity<List<User>> getAllUsers(){
-		List<User> users = userService.getAllUsers();
+	public ResponseEntity<List<UserDto>> getAllUsers(){
+		List<UserDto> users = userService.getAllUsers();
 		return ResponseEntity.ok(users);
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
-		User user = userService.getUserById(userId);
+	public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId) {
+		UserDto user = userService.getUserById(userId);
 		return  ResponseEntity.ok(user);
 	}
 	
 	//build the put request with status code 200
 	//put request is used to update the existing user information in database
 	@PutMapping("/update/{id}")
-	public ResponseEntity<User> updateUserById(@RequestBody User user, @PathVariable("id") Long id){
+	public ResponseEntity<UserDto> updateUserById(@RequestBody UserDto user, @PathVariable("id") Long id){
 		user.setId(id);
-		User updatedUser = userService.updateUser(user);
+		UserDto updatedUser = userService.updateUser(user);
 		return new ResponseEntity<>(updatedUser, HttpStatus.OK);
 	}
 	
